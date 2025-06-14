@@ -142,9 +142,17 @@ export const generateTopicAnalogy = async (topic: string): Promise<string> => {
   return await generateContent(prompt);
 };
 
-export const generateQuiz = async (topic: string, difficulty: string): Promise<any[]> => {
+export const generateQuiz = async (topic: string, difficulty: string, language: string = 'en'): Promise<any[]> => {
+  const languageInstructions = {
+    'en': 'in English',
+    'hi': 'in Hindi using Devanagari script',
+    'hi-Latn': 'in Hinglish (mix of Hindi in Roman script and English)',
+    'ar': 'in Arabic',
+    'id': 'in Indonesian'
+  };
+
   const prompt = `
-    Create 3 quiz questions about ${topic} at a ${difficulty} difficulty level.
+    Create 3 quiz questions about ${topic} at a ${difficulty} difficulty level ${languageInstructions[language as keyof typeof languageInstructions] || 'in English'}.
     
     For each question:
     - Provide a clear, focused question that tests understanding
@@ -163,7 +171,11 @@ export const generateQuiz = async (topic: string, difficulty: string): Promise<a
       }
     ]
     
-    IMPORTANT: Return ONLY the JSON array, no other text or formatting.
+    IMPORTANT: 
+    - Return ONLY the JSON array, no other text or formatting
+    - All text (questions, options, and explanations) must be in the specified language
+    - For Hinglish, use a natural mix of Hindi (in Roman script) and English words
+    - For Hindi, use proper Devanagari script
   `;
   
   const response = await generateContent(prompt);

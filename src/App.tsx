@@ -130,7 +130,7 @@ function App() {
     setQuizData(null);
 
     try {
-      const questions = await generateQuiz(currentTopic, difficulty);
+      const questions = await generateQuiz(currentTopic, difficulty, language);
       
       const quiz: QuizData = {
         questions: questions
@@ -192,7 +192,7 @@ function App() {
                     currentTopic={currentTopic}
                     quizData={quizData}
                     isLoading={isQuizLoading}
-                    onGenerateQuiz={(difficulty) => handleGenerateQuiz(difficulty, 'en')}
+                    onGenerateQuiz={handleGenerateQuiz}
                   />
                 </motion.div>
               )}

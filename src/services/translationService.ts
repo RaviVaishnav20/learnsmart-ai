@@ -70,7 +70,14 @@ const translateWithRetry = async (text: string, targetLanguage: string, maxRetri
 
   const prompt = `Translate the following text to ${targetLanguage}. Maintain the markdown formatting and structure. Only return the translated text without any additional explanations or notes:
 
-${text}`;
+${text}
+
+Important language-specific instructions:
+- For Hindi (hi): Use proper Hindi script (Devanagari)
+- For Hinglish (hi-Latn): Use Roman script with Hindi words written in English letters should not be pure hindi, it should be a mix of hindi and english.
+- Maintain the original meaning and context
+- Keep any code blocks, mathematical expressions, or technical terms unchanged
+- Preserve all markdown formatting`;
 
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {

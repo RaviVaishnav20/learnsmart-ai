@@ -167,4 +167,3 @@ learn_smart/
 ## 🔧 Configuration Files
 
 - `vite.config.ts` - Vite bundler configuration
-- `
